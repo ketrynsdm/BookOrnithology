@@ -65,13 +65,11 @@ public class BookOrnithologyController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateResponseEntity(@PathVariable(value = "id") Long id, @RequestBody @Valid BookOrnithologyDto bookOrnithologyDto) {
         Optional<OrnithologyModel> ornithologyModelOptional = bookOrnithologyService.findById(id);
-        if(!ornithologyModelOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ornithology not found");
-        }
         OrnithologyModel ornithologyModel = new OrnithologyModel();
         BeanUtils.copyProperties(bookOrnithologyDto, ornithologyModel);
+
         ornithologyModel.setId(ornithologyModelOptional.get().getId());
-        ornithologyModel.setDateTime(ornithologyModelOptional.get().getDateTime());
-        return ResponseEntity.status(HttpStatus.OK).body(bookOrnithologyService.save(ornithologyModel));
+        return ResponseEntity.status(HttpStatus.OK).body(bookOrnithologyService.update(ornithologyModel));
+
     }
 }

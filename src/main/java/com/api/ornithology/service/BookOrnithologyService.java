@@ -2,15 +2,13 @@ package com.api.ornithology.service;
 
 import com.api.ornithology.models.OrnithologyModel;
 import com.api.ornithology.repositories.BookOrnithologyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class BookOrnithologyService {
@@ -33,8 +31,16 @@ public class BookOrnithologyService {
         return bookOrnithologyRepository.findById(id);
     }
 
+    public OrnithologyModel update (OrnithologyModel ornithologyModel){
+     //   Optional<OrnithologyModel> ornithologyModelOptional = bookOrnithologyService.findById(ornithologyModel.getId());
+       return this.save(ornithologyModel);
+
+    }
+
     @Transactional
     public void delete(OrnithologyModel ornithologyModel) {
         bookOrnithologyRepository.delete(ornithologyModel);
     }
+
+
 }
