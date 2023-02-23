@@ -1,7 +1,9 @@
 package com.api.ornithology.controller;
 
 
-import com.api.ornithology.domain.User.Usuario;
+import javax.validation.Valid;
+import com.api.ornithology.domain.usuario.DadosAutenticacao;
+import com.api.ornithology.domain.usuario.Usuario;
 import com.api.ornithology.infra.exception.security.DadosTokenJWT;
 import com.api.ornithology.infra.exception.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")

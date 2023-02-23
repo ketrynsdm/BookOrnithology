@@ -1,7 +1,8 @@
 package com.api.ornithology.infra.exception.security;
 
 import com.api.ornithology.Utils.DateTimeUtils;
-import com.api.ornithology.domain.User.DadosAutenticacao;
+import com.api.ornithology.domain.usuario.DadosAutenticacao;
+import com.api.ornithology.domain.usuario.Usuario;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -28,10 +29,10 @@ public class TokenService {
 
     private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-    public String gerarToken(DadosAutenticacao usuario) {
+    public String gerarToken(Usuario usuario) {
         try {
             String token = "Bearer " + Jwts.builder()
-                    .setSubject(usuario.login())
+                    .setSubject(usuario.getLogin())
                     .setIssuedAt(DateTimeUtils.now())
                     .setExpiration(new Date(DateTimeUtils.now().getTime() + jwtExpirationMs))
                     .signWith(signatureAlgorithm, getSecretyKey())

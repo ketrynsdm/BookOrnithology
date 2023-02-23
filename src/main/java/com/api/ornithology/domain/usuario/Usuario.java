@@ -1,4 +1,4 @@
-package com.api.ornithology.domain.User;
+package com.api.ornithology.domain.usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -37,13 +37,19 @@ public class Usuario implements UserDetails {
     public String getUsername() { return login; }
 
     @Override
-    public String isAccountNonExpired() { return true; }
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
     @Override
-    public String isAccountNonLocked() { return true; }
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
     @Override
-    public String isCredentialsNonExpired() { return true; }
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
     @Override
     public boolean isEnabled() { return true; }
