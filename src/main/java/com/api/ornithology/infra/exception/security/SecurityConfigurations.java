@@ -21,33 +21,26 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfigurations {
     @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
-
-    @Autowired
     private SecurityFilter securityFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         //Configuração do Cors
-        CorsConfiguration corsConf = new CorsConfiguration();
-        corsConf.setAllowCredentials(true);
-        corsConf.setMaxAge(3600L);
-        corsConf.setAllowedOrigins(Arrays.asList("*"));
-        corsConf.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "DELETE"));
-        corsConf.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
-        corsConf.setAllowedHeaders(Arrays.asList("Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization"));
+//        CorsConfiguration corsConf = new CorsConfiguration();
+//        corsConf.setAllowCredentials(true);
+//        corsConf.setMaxAge(3600L);
+//        corsConf.setAllowedOrigins(Arrays.asList("*"));
+//        corsConf.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "DELETE"));
+//        corsConf.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+//        corsConf.setAllowedHeaders(Arrays.asList("Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization"));
 
         //Configuração do HTTP security
-        return http
-                .cors().configurationSource(request -> corsConf)
-                .and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
+        return http.csrf().disable()
+                // .exceptionHandling().authenticationEntryPoint()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.POST,
                         "/api/book-ornithology/login"
                 ).permitAll()
-
                 .anyRequest().authenticated()
                 .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
